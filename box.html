@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+           
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            background: url('back.jpg') center center; /* Replace with an online image URL */
+            background-repeat: no-repeat;
+            background-clip: border-box;
+            background-size: auto;
+        }
+
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            background: url('gift.png'); /* Replace with an online image URL */
+            background-size: cover;
+            background-clip: border-box;
+            
+        }
+        .gift-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px; /* Apply border-radius to the image */
+            object-fit: cover; /* Ensure the image covers the container */
+            box-shadow: none; /* Remove the box shadow from the image */
+        }
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        .redirect-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 999;
+            display: none;
+        }
+
+        .redirect-message {
+            font-size: 24px;
+            text-align: center;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="gift-box" id="giftBox">
+            <img src="gift.png" alt="Gift Image">
+        </div>
+    </div>
+
+    <div class="redirect-overlay" id="redirectOverlay">
+        <div class="redirect-message">Box Opening...</div>
+    </div>
+
+    <script>
+        const giftBox = document.getElementById("giftBox");
+        const redirectOverlay = document.getElementById("redirectOverlay");
+
+        giftBox.addEventListener("click", function() {
+            // Remove the shaking animation
+            giftBox.style.animation = "none";
+            // Trigger reflow to restart the animation
+            void giftBox.offsetWidth;
+            // Add the shaking animation again
+            giftBox.style.animation = "shake 0.5s ease infinite";
+
+            setTimeout(function() {
+                // Hide the gift box
+                giftBox.style.display = "none";
+                // Show the redirect overlay
+                redirectOverlay.style.display = "flex";
+
+                // Redirect after 2 seconds (you can adjust the delay)
+                setTimeout(function() {
+                    window.location.href = "hbd.html";
+                }, 2000);
+            }, 500);
+        });
+    </script>
+</body>
+
+</html>
+
